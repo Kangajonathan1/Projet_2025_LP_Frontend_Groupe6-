@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendrier Académique</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .day, .header {
+      padding: 10px;
+      text-align: center;
+    }
+    .header {
+      background: #007BFF;
+      color: white;
+      font-weight: bold;
+    }
+    .day {
+      background: white;
+      border: 1px solid #ccc;
+      height: 60px;
+    }
+    .event {
+      font-size: 0.75em;
+      color: green;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Calendrier Académique - Juin 2025</h1>
+<div class="calendar" id="calendar">
+  <!-- Les jours seront ajoutés ici -->
+</div>
+
+<script>
+  const daysInMonth = 30;
+  const startDay = 6; // Samedi (0 = Dimanche)
+  const events = {
+    5: "Début examens",
+    15: "Clôture des cours",
+    25: "Remise des résultats"
+  };
+const weekDays = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+  const cal = document.getElementById('calendar');
+
+  // Affichage des entêtes
+  weekDays.forEach(day => 
+    cal.innerHTML += <div class="header">day</div>;
+  );
+
+  // Ajout des cases vides avant le 1er
+  for (let i = 0; i < startDay; i++) 
+    cal.innerHTML += <div class="day"></div>;
+  
+
+  // Remplir les jours
+  for (let i = 1; i <= daysInMonth; i++) 
+    let eventText = events[i] ? <div class="event">{events[i]}</div> : '';
+    cal.innerHTML += <div class="day">i{eventText}</div>;
+  
+</script>
+
+</body>
+</html>

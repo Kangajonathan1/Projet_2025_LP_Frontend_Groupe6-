@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <style>
+  .navbar-custom {
+    background-color: #007bff;    /* Couleur principale */
+  }
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+    color: #ffffff;               /* Texte en blanc */
+  }
+  .navbar-custom .nav-link:hover {
+    color: #ffd966;               /* Effet hover si vous voulez */
+  }
+</style>
+
+  <meta charset="UTF-8">
+  <title>Page d'Information & Authentification Étudiant</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body { background-color: #f5f5f5; }
+    .container { margin-top: 40px; }
+    .navbar-custom {
+      background-color: #007bff;
+    }
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barre de navigation commune -->
+  <!-- À coller au début de <body> sur toutes les pages -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container">
+    <a class="navbar-brand" href="grand_public.html">Faculté Polytechnique</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="grand_public.html">Information</a></li>
+        <li class="nav-item"><a class="nav-link" href="student_info.html">Dossier Étudiant</a></li>
+        <li class="nav-item"><a class="nav-link" href="admin_login.html">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" href="professor_login.html">Professeur</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    
+    <h2>Authentification Étudiant</h2>
+    <p>Pour consulter vos informations personnelles, connectez-vous ci-dessous :</p>
+    <!-- Formulaire de connexion incluant les nouveaux champs -->
+    <form id="studentLoginForm">
+      <div class="form-group">
+        <label for="studentName">Nom complet :</label>
+        <input type="text" id="studentName" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="studentPassword">Mot de passe :</label>
+        <input type="password" id="studentPassword" class="form-control" required>
+      </div>
+      <!-- Nouveau champ : sélection de la promotion -->
+      <div class="form-group">
+        <label for="promotion">Promotion :</label>
+        <select id="promotion" class="form-control" required>
+          <option value="">-- Choisir --</option>
+          <option value="L2">L2</option>
+          <option value="L3">L3</option>
+          <option value="M1">M1</option>
+          <option value="M2">M2</option>
+        </select>
+      </div>
+      <!-- Nouveau champ : sélection du département -->
+      <div class="form-group">
+        <label for="department">Département :</label>
+        <select id="department" class="form-control" required>
+          <option value="">-- Choisir --</option>
+          <option value="génie électrique">Génie électrique</option>
+          <option value="génie informatique">Génie informatique</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Se connecter</button>
+    </form>
+  </div>
+  
+  <script>
+  // "Base" simulée pour l'exemple
+  const studentData = [
+    { name: "Alice Dupont", password: "alice123", feesStatus: "à jour", eligible: true, photo: "images/alice.jpg" },
+    { name: "Bob Martin", password: "bob123", feesStatus: "non à jour", eligible: false, photo: "images/bob.png" }
+  ];
+
+  document.getElementById('studentLoginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Empêche le rechargement
+
+    // 1) Lecture des valeurs du formulaire
+    const name      = document.getElementById('studentName').value.trim();
+    const password  = document.getElementById('studentPassword').value;
+    const promotion = document.getElementById('promotion').value;
+    const department= document.getElementById('department').value;
+
+    // 2) On cherche l’étudiant dans la "base simulée"
+    const student = studentData.find(
+      s => s.name.toLowerCase() === name.toLowerCase() && s.password === password
+    );
+
+    if (student) {
+      // 3) Connexion réussie : on stocke CHAQUE information dans sa propre clé localStorage
+      localStorage.setItem('studentName',      student.name);
+      localStorage.setItem('studentPromo',     promotion);
+      localStorage.setItem('studentDept',      department);
+      localStorage.setItem('studentPhoto',     student.photo || 'images/default_avatar.png');
+      localStorage.setItem('studentFeesStatus',student.feesStatus);
+      localStorage.setItem('studentEligible',  student.eligible ? 'oui' : 'non');
+
+      // 4) Redirection vers le dashboard HTML (dashboard “statique” pour l’instant)
+      window.location.href = "student_dashboard.html";
+    } else {
+      alert("Identifiants incorrects. Veuillez vérifier votre nom complet, mot de passe et vos sélections.");
+    }
+  });
+</script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

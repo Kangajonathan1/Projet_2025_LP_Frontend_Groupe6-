@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <style>
+  .navbar-custom {
+    background-color: #007bff;    /* Couleur principale */
+  }
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+    color: #ffffff;               /* Texte en blanc */
+  }
+  .navbar-custom .nav-link:hover {
+    color: #ffd966;               /* Effet hover si vous voulez */
+  }
+</style>
+
+  <meta charset="UTF-8">
+  <title>Tableau de bord Administrateur</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .container { margin-top: 40px; }
+    .navbar-custom { background-color: #007bff; }
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link { color: #ffffff; }
+  </style>
+</head>
+<body>
+  <!-- Barre de navigation -->
+  <!-- À coller au début de <body> sur toutes les pages -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container">
+    <a class="navbar-brand" href="grand_public.html">Faculté Polytechnique</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="grand_public.html">Information</a></li>
+        <li class="nav-item"><a class="nav-link" href="student_info.html">Dossier Étudiant</a></li>
+        <li class="nav-item"><a class="nav-link" href="admin_login.html">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" href="professor_login.html">Professeur</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <div class="container">
+    <h1>Tableau de bord Administrateur</h1>
+    <!-- Menu d'actions sous forme de liste -->
+    <div class="list-group my-4">
+      <a href="student_list.html" class="list-group-item list-group-item-action">Voir la Liste des Étudiants</a>
+      <a href="add_student_admin.html" class="list-group-item list-group-item-action">Ajouter un Étudiant</a>
+      <a href="delete_student.html" class="list-group-item list-group-item-action">Supprimer un Étudiant</a>
+      <a href="make_eligible.html" class="list-group-item list-group-item-action">Rendre un Étudiant Éligible</a>
+      <a href="block_student.html" class="list-group-item list-group-item-action">Bloquer un Étudiant</a>
+    </div>
+    <button class="btn btn-danger" onclick="logout()">Déconnexion</button>
+  </div>
+
+  <script>
+    // Vérification que l'admin est connecté
+    const admin = JSON.parse(localStorage.getItem('admin'));
+    if (!admin || admin.role !== "admin") {
+      alert("Accès interdit. Veuillez vous connecter en tant qu'administrateur.");
+      window.location.href = "admin_login.html";
+    }
+    // Fonction de déconnexion qui supprime l'objet admin et redirige vers la page de connexion
+    function logout() {
+      localStorage.removeItem('admin');
+      window.location.href = "admin_login.html";
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

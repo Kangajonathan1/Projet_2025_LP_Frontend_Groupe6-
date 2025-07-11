@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque</title>
+    <link rel="stylesheet" href="accueil.css">
+    <style>
+        body{
+            margin: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            height: 80vh;
+        }
+        .login-container{
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            width: 90%;
+            max-width: 400px;
+        }
+        h2{
+            text-align: center;
+            color: #042b52 ;
+            margin-bottom: 25px;
+        }
+        input[type="email"],input[type="password"],input[type="text"]{
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        button{
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #042b52;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover{
+            background-color: #0039cc;
+        }
+        .biblio{
+            display: flex;
+            justify-content: space-between;
+            padding: 110px;
+
+            
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="classe1">
+            <div class="sous-classe1">
+                <a href="index.html"><img src="logo.png" alt="#" width="60px" height="60px"></a>
+				<h5>UNIVERSITE DE KINSHASA <br> FACULTE POLYTECHNIQUE</h5>
+            </div>
+            <div class="sous-classe2">
+                <nav>
+                    <ul class="nav menu">
+					    <li><a href="accueil.html">Accueil</a></li>
+					    <li><a href="#departement">Départements</a></li>
+					    <li><a href="#equipe">Corps professionel</a></li>
+                        <li><a href="logins.html">Bibliothèques</a></li>
+				    </ul>
+                </nav>
+            </div>
+            <div class="sous-classe3">
+                <a href="login.html"><button class="btn">SE CONNECTER</button></a>
+            </div>
+        </div>
+    </header>
+    <section class="inscription">
+        <div class="biblio">
+            <div>
+                <h1>Bibliothèque central</h1>
+                <div class="login-container">
+                    <h2>INSCRIVEZ-VOUS</h2>
+                    <form action="/login" method="POST">
+                        <input type="text" name="name" placeholder="Nom">
+                        <input type="email" name="email" placeholder="Adresse e-mail" required>
+                        <input type="password" name="password" placeholder="Mot de passe" required>
+                        <input type="password" name="password" placeholder="confirmer mot de passe" required>
+                        <button type="submit" id="btnLogin" class="btn"> S'inscrire</button>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <h1>Bibliothèque Génie mécanique</h1>
+                <div class="login-container">
+                    <h2>INSCRIVEZ-VOUS</h2>
+                    <form action="/login" method="POST">
+                        <input type="email" name="email" placeholder="Adresse e-mail" required>
+                        <input type="password" name="password" placeholder="Mot de passe" required>
+                        <button type="submit" id="btnLogin" class="btn"> S'inscrire</button>
+                    </form>
+                </div>
+            </div> 
+        </div>
+        <div class="biblio">
+            <div>
+                <h1>Bibliothèque Génie électrique</h1>
+                <div class="login-container">
+                    <h2>INSCRIVEZ-VOUS</h2>
+                    <form action="/login" method="POST">
+                        <input type="email" name="email" placeholder="Adresse e-mail" required>
+                        <input type="password" name="password" placeholder="Mot de passe" required>
+                        <button type="submit" id="btnLogin" class="btn"> S'inscrire</button>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <h1>Bibliothèque Génie civil</h1>
+                <div class="login-container">
+                    <h2>INSCRIVEZ-VOUS</h2>
+                    <form action="/login" method="POST">
+                        <input type="email" name="email" placeholder="Adresse e-mail" required>
+                        <input type="password" name="password" placeholder="Mot de passe" required>
+                        <button type="submit" id="btnLogin" class="btn"> S'inscrire</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

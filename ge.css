@@ -1,0 +1,31 @@
+
+.cours a{
+    display: inline-block;
+    background-color: rgb(127, 136, 167);
+    color: black;
+    text-decoration: none;
+    padding: 15px 50px;
+    border-radius: 5px;
+    margin-top: 10px;
+    height: 50px;
+    width: 400px;
+    text-align: center;
+    }
+.titre h1{
+    color: #1a76d1;
+    font-size: 70px;
+}
+.tense {
+    text-align: left;
+    height: 300px;
+    width: 900px;
+    background:#1A76D1;
+    border-radius:5px;
+    text-align: center;
+
+
+    border-radius: 3px;
+}
+.tense p{
+    color: black;
+}

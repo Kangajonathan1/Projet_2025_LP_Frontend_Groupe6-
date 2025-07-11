@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <style>
+  .navbar-custom {
+    background-color: #007bff;    /* Couleur principale */
+  }
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+    color: #ffffff;               /* Texte en blanc */
+  }
+  .navbar-custom .nav-link:hover {
+    color: #ffd966;               /* Effet hover si vous voulez */
+  }
+</style>
+
+  <meta charset="UTF-8">
+  <title>Cours et Ressources - Professeur</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .container { margin-top: 40px; }
+    .navbar-custom { background-color: #28a745; }
+    .navbar-custom .navbar-brand, .navbar-custom .nav-link { color: #ffffff; }
+    .resource-form { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <!-- Barre de navigation -->
+  <!-- À coller au début de <body> sur toutes les pages -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container">
+    <a class="navbar-brand" href="grand_public.html">Faculté Polytechnique</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="grand_public.html">Information</a></li>
+        <li class="nav-item"><a class="nav-link" href="student_info.html">Dossier Étudiant</a></li>
+        <li class="nav-item"><a class="nav-link" href="admin_login.html">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" href="professor_login.html">Professeur</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <h1>Cours et Ressources Pédagogiques</h1>
+    <h3>Cours enseignés</h3>
+    <ul class="list-group">
+      <!-- Liste statique des cours (à adapter selon votre établissement) -->
+      <li class="list-group-item">Mathématiques appliquées</li>
+      <li class="list-group-item">Algèbre linéaire</li>
+      <li class="list-group-item">Programmation en Python</li>
+    </ul>
+    <hr>
+    <h3>Téléverser une nouvelle ressource</h3>
+    <!-- Formulaire de téléversement de ressource (simulation) -->
+    <form id="uploadResourceForm" class="resource-form">
+      <div class="form-group">
+        <label for="resourceTitle">Titre de la ressource :</label>
+        <input type="text" id="resourceTitle" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="resourceFile">Choisir un fichier (simulé) :</label>
+        <input type="file" id="resourceFile" class="form-control-file" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Téléverser</button>
+    </form>
+    <a href="professor_dashboard.html" class="btn btn-secondary mt-3">Retour au Dashboard</a>
+  </div>
+  
+  <script>
+    // Vérification de la connexion professeur
+    const professor = JSON.parse(localStorage.getItem('professor'));
+    if (!professor || professor.role !== "professor") {
+      alert("Accès interdit. Veuillez vous connecter en tant que professeur.");
+      window.location.href = "professor_login.html";
+    }
+    // Simuler l'action de téléversement (ici, on affiche juste un message)
+    document.getElementById('uploadResourceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("La ressource a été téléversée avec succès (simulation).");
+      // Ici, vous pourriez ajouter du code pour envoyer le fichier vers un serveur via AJAX
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
