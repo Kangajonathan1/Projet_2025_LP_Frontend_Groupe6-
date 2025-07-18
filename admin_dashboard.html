@@ -517,7 +517,7 @@
         <div class="stats-container">
           <div class="stat-box">
             <h3>👨‍🎓 Étudiants</h3>
-            <p>1 243 inscrits</p>
+            <p>400 inscrits</p>
           </div>
           <div class="stat-box">
             <h3>👩‍🏫 Enseignants</h3>
@@ -525,11 +525,11 @@
           </div>
           <div class="stat-box">
             <h3>📘 Cours</h3>
-            <p>125 modules</p>
+            <p>84 modules</p>
           </div>
           <div class="stat-box">
             <h3>🧾 Inscriptions validées</h3>
-            <p>1 187</p>
+            <p>250</p>
           </div>
           <div class="stat-box">
             <h3>✉️ Messages non lus</h3>
@@ -550,7 +550,9 @@
         <form id="form-ajout-etudiant" class="form-etudiant">
           <input type="text" id="nom" placeholder="Nom complet" required>
           <input type="text" id="matricule" placeholder="Matricule" required>
-          <input type="text" id="faculte" placeholder="Promotion" required>
+          <input type="text" id="département" placeholder="Département" required>
+          <input type="email" id="email" placeholder="Email" required>
+
           <button type="submit">➕ Ajouter</button>
         </form>
 
@@ -563,7 +565,8 @@
             <tr>
               <th>Nom</th>
               <th>Matricule</th>
-              <th>Faculté</th>
+              <th>département</th>
+              <th>Email</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -578,10 +581,11 @@
         <h1>👩‍🏫 Gestion des enseignants</h1>
 
         <!-- Formulaire d'ajout -->
-        <form id="form-ajout-enseignant" class="form-enseignant">
-          <input type="text" id="nom-enseignant" placeholder="Nom complet" required>
-          <input type="text" id="specialite" placeholder="Spécialité" required>
-          <input type="email" id="email-enseignant" placeholder="Email" required>
+        <form id="formEnseignant" class="form-enseignant">
+          <input type="text" id="nomEns" placeholder="Nom complet" required>
+          <input type="text" id="grade" placeholder="Spécialité" required>
+          <input type="text" id="departement" placeholder="Département" required>
+          <input type="email" id="emailEns" placeholder="Email" required>
           <button type="submit">➕ Ajouter</button>
         </form>
 
@@ -593,12 +597,13 @@
           <thead>
             <tr>
               <th>Nom</th>
-              <th>Spécialité</th>
+              <th>Grade</th>
+              <th>Département</th>
               <th>Email</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tableEnseignants">
             <!-- Enseignants dynamiques -->
           </tbody>
         </table>
@@ -626,6 +631,7 @@
               <th>Nom</th>
               <th>Code</th>
               <th>Responsable</th>
+
               <th>Actions</th>
             </tr>
           </thead>
@@ -756,43 +762,70 @@ menuItems.forEach(item => {
     document.getElementById(targetId).classList.add('active');
   });
 });
-let etudiants = [];
 
 const formAjout = document.getElementById("form-ajout-etudiant");
 const tableBody = document.querySelector("#table-etudiants tbody");
 const inputRecherche = document.getElementById("recherche");
+    
 
-formAjout.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const nom = document.getElementById("nom").value;
-  const matricule = document.getElementById("matricule").value;
-  const faculte = document.getElementById("faculte").value;
+    let etudiants = [];
+    let indexEnCours = null;
 
-  etudiants.push({ nom, matricule, faculte });
-  afficherEtudiants(etudiants);
+    formAjout.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  formAjout.reset();
-});
+      const nom = document.getElementById("nom").value;
+      const matricule = document.getElementById("matricule").value;
+      const département = document.getElementById("département").value;
+      const email = document.getElementById("email").value;
+etudiants.push({ nom, matricule, faculte, email });
 
-function afficherEtudiants(liste) {
-  tableBody.innerHTML = "";
-  liste.forEach((e, index) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${e.nom}</td>
-      <td>${e.matricule}</td>
-      <td>${e.faculte}</td>
-      <td><button class="btn-supprimer" onclick="supprimerEtudiant(${index})">🗑️</button></td>
-    `;
-    tableBody.appendChild(tr);
-  });
-}
 
-function supprimerEtudiant(index) {
-  etudiants.splice(index, 1);
-  afficherEtudiants(etudiants);
-}
+      if (indexEnCours === null) {
+        // Ajout
+        etudiants.push({ nom, matricule, département });
+      } else {
+        // Modification
+        etudiants[indexEnCours] = { nom, matricule, département };
+        indexEnCours = null;
+        formAjout.querySelector("button[type='submit']").textContent = "Ajouter";
+      }
 
+      afficherEtudiants(etudiants);
+      formAjout.reset();
+    });
+
+    function afficherEtudiants(liste) {
+      tableBody.innerHTML = "";
+      liste.forEach((e, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${e.nom}</td>
+          <td>${e.matricule}</td>
+          <td>${e.département}</td>
+          <td>${e.email}</td>
+          <td>
+            <button class="btn-modifier" onclick="modifierEtudiant(${index})">✏️</button>
+            <button class="btn-supprimer" onclick="supprimerEtudiant(${index})">🗑️</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    function supprimerEtudiant(index) {
+      etudiants.splice(index, 1);
+      afficherEtudiants(etudiants);
+    }
+
+    function modifierEtudiant(index) {
+      const etudiant = etudiants[index];
+      document.getElementById("nom").value = etudiant.nom;
+      document.getElementById("matricule").value = etudiant.matricule;
+      document.getElementById("faculte").value = etudiant.faculte;
+      indexEnCours = index;
+      formAjout.querySelector("button[type='submit']").textContent = "Modifier";
+    }
 // Recherche filtrée
 inputRecherche.addEventListener("input", function () {
   const filtre = inputRecherche.value.toLowerCase();
@@ -803,44 +836,70 @@ inputRecherche.addEventListener("input", function () {
   );
   afficherEtudiants(resultats);
 });
-let enseignants = [];
+    const formEnseignant = document.getElementById("formEnseignant");
+    const tableEnseignants = document.getElementById("tableEnseignants");
+    const inputRechercheEns = document.getElementById("recherche");
 
-const formAjoutEns = document.getElementById("form-ajout-enseignant");
-const tableEnsBody = document.querySelector("#table-enseignants tbody");
-const inputRechercheEns = document.getElementById("recherche-enseignant");
 
-formAjoutEns.addEventListener("submit", function (e) {
-  e.preventDefault();
+    let enseignants = [];
+    let indexModifEnseignant = null;
 
-  const nom = document.getElementById("nom-enseignant").value;
-  const specialite = document.getElementById("specialite").value;
-  const email = document.getElementById("email-enseignant").value;
+    formEnseignant.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  enseignants.push({ nom, specialite, email });
-  afficherEnseignants(enseignants);
+      const nom = document.getElementById("nomEns").value;
+      const grade = document.getElementById("grade").value;
+      const departement = document.getElementById("departement").value;
+      const email = document.getElementById("emailEns").value;
+      enseignants.push({ nom, grade, departement, email });
 
-  formAjoutEns.reset();
-});
 
-function afficherEnseignants(liste) {
-  tableEnsBody.innerHTML = "";
-  liste.forEach((e, index) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${e.nom}</td>
-      <td>${e.specialite}</td>
-      <td>${e.email}</td>
-      <td><button class="btn-supprimer" onclick="supprimerEnseignant(${index})">🗑️</button></td>
-    `;
-    tableEnsBody.appendChild(tr);
-  });
-}
 
-function supprimerEnseignant(index) {
-  enseignants.splice(index, 1);
-  afficherEnseignants(enseignants);
-}
+      if (indexModifEnseignant === null) {
+        enseignants.push({ nom, grade, departement });
+      } else {
+        enseignants[indexModifEnseignant] = { nom, grade, departement };
+        indexModifEnseignant = null;
+        formEnseignant.querySelector("button[type='submit']").textContent = "Ajouter";
+      }
 
+      afficherEnseignants(enseignants);
+      formEnseignant.reset();
+    });
+
+    function afficherEnseignants(liste) {
+      tableEnseignants.innerHTML = "";
+      liste.forEach((e, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${e.nom}</td>
+          <td>${e.grade}</td>
+          <td>${e.departement}</td>
+          <td>${e.email}</td>
+
+          <td>
+            <button class="btn-modifier" onclick="modifierEnseignant(${index})">✏️</button>
+            <button class="btn-supprimer" onclick="supprimerEnseignant(${index})">🗑️</button>
+          </td>
+        `;
+        tableEnseignants.appendChild(tr);
+      });
+    }
+
+    function supprimerEnseignant(index) {
+      enseignants.splice(index, 1);
+      afficherEnseignants(enseignants);
+    }
+
+    function modifierEnseignant(index) {
+      const e = enseignants[index];
+      document.getElementById("nomEns").value = e.nom;
+      document.getElementById("grade").value = e.grade;
+      document.getElementById("departement").value = e.departement;
+      document.getElementById("emailEns").value = e.email;
+      indexModifEnseignant = index;
+      formEnseignant.querySelector("button[type='submit']").textContent = "Modifier";
+    }
 inputRechercheEns.addEventListener("input", function () {
   const filtre = inputRechercheEns.value.toLowerCase();
   const resultats = enseignants.filter(e =>
@@ -1098,13 +1157,6 @@ function afficherTfc() {
     tfcDomaineContainer.appendChild(bloc);
   }
 }
-
-
-
-
-
-
-
 </script>
   
 

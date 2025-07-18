@@ -16,10 +16,10 @@
             <div class="sous-classe2">
                 <nav>
                     <ul class="nav menu">
-					    <li><a href="#">Accueil</a></li>
-					    <li><a href="#departement">Départements</a></li>
-					    <li><a href="#corps-professoral">Corps professoral</a></li>
-                        <li><a href="bibliotheque.html">Bibliothèques</a></li>
+					    <li><a href="#" class="nav-link">Accueil</a></li>
+					    <li><a href="#departement" class="nav-link">Départements</a></li>
+					    <li><a href="#corps-professoral" class="nav-link">Corps professoral</a></li>
+                        <li><a href="bibliotheque.html" class="nav-link">Bibliothèques</a></li>
 				    </ul>
                 </nav>
             </div>
@@ -119,7 +119,7 @@
                     </div>
                     <h2>GENIE INFORMATIQUE</h2>
                     <p>Offre une formation approfondie en programmation, réseaux, intelligence artificielle et développement des systèmes informatiques performants.</p>
-                    <a href="#">Savoir plus<i class="fa fa-long-arrow-right"></i></a>   
+                    <a href="gi.html">Savoir plus<i class="fa fa-long-arrow-right"></i></a>   
                 </div>
             </div>
             <div class="section3-dep">
@@ -145,22 +145,22 @@
         <div class="contenu">
             <div class="stat-box">
                 <img src="IMAGES\person-chalkboard-solid.svg" alt="">
-                <h2 class="counter" data-target="100">0</h2>
+                <h2 class="counter" data-target="100">100</h2>
                 <p>Professeurs</p>
             </div>
             <div class="stat-box">
                 <img src="IMAGES\person-chalkboard-solid.svg" alt="">
-                <h2 class="counter" data-target="50">0</h2>
+                <h2 class="counter" data-target="50">60</h2>
                 <p>Assistants</p>
             </div>
             <div class="stat-box">
                 <img src="IMAGES\house-solid (1).svg" alt="">
-                <h2 class="counter" data-target="10">0</h2>
+                <h2 class="counter" data-target="10">10</h2>
                 <p>Laboratoires</p>
             </div>
             <div class="stat-box">
                 <img src="IMAGES\person-solid (1).svg" alt="">
-                <h2 class="counter" data-target="780">0</h2>
+                <h2 class="counter" data-target="780">780</h2>
                 <p>Etudiants</p>
             </div>
             
@@ -209,7 +209,7 @@
                 <p>Electrotechnicien</p>
             </div>
              <div class="prof-card">
-                <img src="prof3.jpg" alt="Professeur C">
+                <img src="1752845625357.jpg" alt="Professeur C">
                 <h3>Pr. Paul OLAMBA  </h3>
                 <p>physique</p>
             </div>
@@ -219,7 +219,7 @@
                 <p>ingenieur constructeur</p>
             </div>
              <div class="prof-card">
-                <img src="prof3.jpg" alt="Professeur C">
+                <img src="1752845514523.jpg" alt="Professeur C">
                 <h3>Pr. Carl MBUKANI </h3>
                 <p>Electrotechnicien</p>
             </div>
@@ -229,7 +229,12 @@
                 <p>Electrotechnicien</p>
             </div>
              <div class="prof-card">
-                <img src="prof3.jpg" alt="Professeur C">
+                <img src="Prof polytech\defense 26 Aout  (51 sur 54).jpg" alt="Professeur C">
+                <h3>Pr. TITO </h3>
+                <p>Electrotechnicien</p>
+            </div>
+             <div class="prof-card">
+                <img src="1751113607139.jpg" alt="Professeur C">
                 <h3>Pr. Guy WALONGO </h3>
                 <p>Electrotechnicien</p>
             </div>
@@ -363,6 +368,28 @@
 </body>
 </html>
 <script>
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach((section) => {
+      const top = section.offsetTop;
+      const height = section.clientHeight;
+      if (scrollY >= top - height / 3) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === "#" + current) {
+        link.classList.add("active");
+      }
+    });
+  });
+
     let slides =document.querySelectorAll('.slide');
     let current=0;
 
@@ -382,25 +409,7 @@
     },3000);
 
 
-    window.addEventListener('DOMContentLoaded', ()=> {
-        const counters= document.querySelectorAll('.counter');
-        counters.forEach(counter=>{
-        counter.innerText= '0';
-        const updateCounter= () =>{
-             const target= +counter.getAttribute('data-target');
-            const current= +counter.innerText;
-            const increment=target/100;
-            if (current<target){
-                counter .innerText=$`{Math.ceil(current+increment)}`;
-                setTimeout(updateCounter ,20);
-            }
-            else{
-            counter.innerText=target;
-            } };
-        updateCounter();
-       
-    });  
-    });
+   
   const scrollContainer = document.querySelector(".professeurs-scroll");
 
   let autoScroll = setInterval(() => {
