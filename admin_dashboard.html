@@ -1,79 +1,1113 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Administrateur</title>
   <style>
-  .navbar-custom {
-    background-color: #007bff;    /* Couleur principale */
-  }
-  .navbar-custom .navbar-brand,
-  .navbar-custom .nav-link {
-    color: #ffffff;               /* Texte en blanc */
-  }
-  .navbar-custom .nav-link:hover {
-    color: #ffd966;               /* Effet hover si vous voulez */
-  }
-</style>
+    body {
+  margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  <meta charset="UTF-8">
-  <title>Tableau de bord Administrateur</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <style>
-    .container { margin-top: 40px; }
-    .navbar-custom { background-color: #007bff; }
-    .navbar-custom .navbar-brand,
-    .navbar-custom .nav-link { color: #ffffff; }
+.admin-dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+/* ===== MENU ===== */
+.sidebar {
+  width: 220px;
+  background-color: #042b52;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar li {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+  background-color: black;
+}
+
+/* ===== CONTENU ===== */
+.main-content {
+  flex: 1;
+  background-color: #f0f2f5;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.main-content section {
+  display: none;
+}
+
+.main-content section.active {
+  display: block;
+}
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.stat-box {
+  flex: 1 1 250px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.stat-box:hover {
+  transform: scale(1.03);
+}
+
+.stat-box h3 {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.stat-box p {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+.form-etudiant {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.form-etudiant input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  flex: 1 1 200px;
+}
+
+.form-etudiant button {
+  padding: 8px 12px;
+  background-color: black;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.recherche-input {
+  padding: 8px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#table-etudiants {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#table-etudiants th, #table-etudiants td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+#table-etudiants tr:hover {
+  background-color: #f9f9f9;
+}
+
+.btn-supprimer {
+  background: black;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-supprimer:hover {
+  background: #c0392b;
+}
+.form-enseignant {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.form-enseignant input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  flex: 1 1 200px;
+}
+
+.form-enseignant button {
+  padding: 8px 12px;
+  background-color: black;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#table-enseignants {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#table-enseignants th, #table-enseignants td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+#table-enseignants tr:hover {
+  background-color: #f9f9f9;
+}
+.form-cours {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.form-cours input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  flex: 1 1 200px;
+}
+
+.form-cours button {
+  padding: 8px 12px;
+  background-color: black;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#table-cours {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#table-cours th, #table-cours td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+#table-cours tr:hover {
+  background-color: #f9f9f9;
+}
+
+.form-message {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  max-width: 500px;
+}
+
+.form-message input,
+.form-message textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.form-message button {
+  width: 150px;
+  padding: 8px 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.form-message button:hover {
+  background-color: black;
+}
+
+.messages-list {
+  list-style: none;
+  padding-left: 0;
+  max-width: 600px;
+}
+
+.messages-list li {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.messages-list li button {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.messages-list li button:hover {
+  background: #c0392b;
+}
+.form-notification {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.form-notification input,
+.form-notification textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.form-notification button {
+  width: 120px;
+  padding: 8px 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.form-notification button:hover {
+  background-color: black;
+}
+
+.notifications-list {
+  list-style: none;
+  padding-left: 0;
+  max-width: 600px;
+}
+
+.notifications-list li {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.notifications-list li button {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.notifications-list li button:hover {
+  background: #c0392b;
+}
+
+.notifications-list li strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+.form-parametres {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-parametres label {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-parametres input,
+.form-parametres select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+.form-parametres button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: black;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-parametres button:hover {
+  background-color: black;
+}
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 18px;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.tab-button.active {
+  background-color: black;
+  color: white;
+}
+
+.tab-section {
+  display: none;
+}
+
+.tab-section.active-tab {
+  display: block;
+}
+.tfc-formulaire {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+}
+
+.tfc-formulaire form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tfc-formulaire input,
+.tfc-formulaire select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.tfc-formulaire button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tfc-liste h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.tfc-domaine-bloc {
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-left: 4px solid #1abc9c;
+  border-radius: 8px;
+}
+
+.tfc-domaine-bloc h4 {
+  color: #1abc9c;
+  margin-bottom: 10px;
+}
+
+.tfc-domaine-bloc ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tfc-domaine-bloc li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+
   </style>
 </head>
 <body>
-  <!-- Barre de navigation -->
-  <!-- À coller au début de <body> sur toutes les pages -->
-<nav class="navbar navbar-expand-lg navbar-custom">
-  <div class="container">
-    <a class="navbar-brand" href="grand_public.html">Faculté Polytechnique</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
-            aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="grand_public.html">Information</a></li>
-        <li class="nav-item"><a class="nav-link" href="student_info.html">Dossier Étudiant</a></li>
-        <li class="nav-item"><a class="nav-link" href="admin_login.html">Admin</a></li>
-        <li class="nav-item"><a class="nav-link" href="professor_login.html">Professeur</a></li>
+  <div class="admin-dashboard">
+    
+    <!-- MENU LATÉRAL -->
+    <aside class="sidebar">
+      <h2>🎓 Admin</h2>
+      <ul id="admin-menu">
+        <li class="active" data-target="admin-accueil">🏠 Accueil</li>
+        <li data-target="admin-etudiants">👨‍🎓 Étudiants</li>
+        <li data-target="admin-enseignants">👩‍🏫 Enseignants</li>
+        <li data-target="admin-cours">📘 Cours</li>
+        <li data-target="admin-messages">✉️ Messagerie</li>
+        <li data-target="admin-notifications">🔔 Notifications</li>
+        <li data-target="admin-parametres">⚙️ Paramètres</li>
+        <li data-target="gestion-academique">📚 Gestion académique</li>
       </ul>
-    </div>
+    </aside>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-content">
+      <section id="admin-accueil" class="active">
+        <h1>🏠 Tableau de bord administratif</h1>
+
+        <div class="stats-container">
+          <div class="stat-box">
+            <h3>👨‍🎓 Étudiants</h3>
+            <p>1 243 inscrits</p>
+          </div>
+          <div class="stat-box">
+            <h3>👩‍🏫 Enseignants</h3>
+            <p>87 en activité</p>
+          </div>
+          <div class="stat-box">
+            <h3>📘 Cours</h3>
+            <p>125 modules</p>
+          </div>
+          <div class="stat-box">
+            <h3>🧾 Inscriptions validées</h3>
+            <p>1 187</p>
+          </div>
+          <div class="stat-box">
+            <h3>✉️ Messages non lus</h3>
+            <p>34</p>
+          </div>
+          <div class="stat-box">
+            <h3>🔔 Notifications en attente</h3>
+            <p>6</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="admin-etudiants">
+        <h1>👨‍🎓 Gestion des étudiants</h1>
+
+        <!-- Formulaire d'ajout -->
+        <form id="form-ajout-etudiant" class="form-etudiant">
+          <input type="text" id="nom" placeholder="Nom complet" required>
+          <input type="text" id="matricule" placeholder="Matricule" required>
+          <input type="text" id="faculte" placeholder="Promotion" required>
+          <button type="submit">➕ Ajouter</button>
+        </form>
+
+        <!-- Zone de recherche -->
+        <input type="text" id="recherche" placeholder="🔍 Rechercher un étudiant..." class="recherche-input">
+
+        <!-- Liste des étudiants -->
+        <table id="table-etudiants">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Matricule</th>
+              <th>Faculté</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Étudiants dynamiquement insérés ici -->
+          </tbody>
+        </table>
+      </section>
+
+
+      <section id="admin-enseignants">
+        <h1>👩‍🏫 Gestion des enseignants</h1>
+
+        <!-- Formulaire d'ajout -->
+        <form id="form-ajout-enseignant" class="form-enseignant">
+          <input type="text" id="nom-enseignant" placeholder="Nom complet" required>
+          <input type="text" id="specialite" placeholder="Spécialité" required>
+          <input type="email" id="email-enseignant" placeholder="Email" required>
+          <button type="submit">➕ Ajouter</button>
+        </form>
+
+        <!-- Zone de recherche -->
+        <input type="text" id="recherche-enseignant" placeholder="🔍 Rechercher un enseignant..." class="recherche-input">
+
+        <!-- Liste des enseignants -->
+        <table id="table-enseignants">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Spécialité</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Enseignants dynamiques -->
+          </tbody>
+        </table>
+      </section>
+
+
+      <section id="admin-cours">
+        <h1>📘 Gestion des cours</h1>
+
+        <!-- Formulaire d'ajout -->
+        <form id="form-ajout-cours" class="form-cours">
+          <input type="text" id="nom-cours" placeholder="Nom du cours" required>
+          <input type="text" id="code-cours" placeholder="Code" required>
+          <input type="text" id="enseignant-responsable" placeholder="Enseignant responsable" required>
+          <button type="submit">➕ Ajouter</button>
+        </form>
+
+        <!-- Zone de recherche -->
+        <input type="text" id="recherche-cours" placeholder="🔍 Rechercher un cours..." class="recherche-input">
+
+        <!-- Liste des cours -->
+        <table id="table-cours">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Code</th>
+              <th>Responsable</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Cours ajoutés dynamiquement -->
+          </tbody>
+        </table>
+      </section>
+      <section id="admin-messages">
+        <h1>✉️ Messagerie administrative</h1>
+
+        <!-- Formulaire d'envoi -->
+        <form id="form-envoi-message" class="form-message">
+          <input type="text" id="destinataire" placeholder="Destinataire (Matricule ou 'Tous')" required>
+          <textarea id="contenu-message" rows="4" placeholder="Votre message..." required></textarea>
+          <button type="submit">📤 Envoyer</button>
+        </form>
+
+        <!-- Liste des messages envoyés -->
+        <h2>Messages envoyés</h2>
+        <ul id="liste-messages" class="messages-list"></ul>
+      </section>
+
+
+      <section id="admin-notifications">
+        <h1>🔔 Notifications globales</h1>
+
+        <!-- Formulaire de création -->
+        <form id="form-ajout-notification" class="form-notification">
+          <input type="text" id="titre-notif" placeholder="Titre de la notification" required>
+          <textarea id="contenu-notif" rows="3" placeholder="Contenu de la notification" required></textarea>
+          <button type="submit">➕ Ajouter</button>
+        </form>
+
+        <!-- Liste des notifications -->
+        <ul id="liste-notifications" class="notifications-list"></ul>
+      </section>
+
+
+      <section id="admin-parametres">
+        <h1>⚙️ Paramètres du système</h1>
+
+        <form id="form-parametres" class="form-parametres">
+
+          <label for="nom-etablissement">Nom de l'établissement :</label>
+          <input type="text" id="nom-etablissement" placeholder="Ex: Université de Kinshasa" required>
+
+          <label for="email-contact">Email de contact :</label>
+          <input type="email" id="email-contact" placeholder="contact@unikin.ac.cd" required>
+
+          <label for="theme">Thème :</label>
+          <select id="theme">
+            <option value="clair">🌞 Clair</option>
+            <option value="sombre">🌜 Sombre</option>
+          </select>
+
+          <button type="submit">💾 Enregistrer</button>
+        </form>
+
+        <div id="message-parametres" style="margin-top: 20px; color: green; font-weight: bold;"></div>
+      </section>
+      <section id="gestion-academique" class="section">
+        <h1>📚 Gestion académique</h1>
+
+        <div class="tabs">
+          <button class="tab-button active" onclick="switchTab('tfc')">📂 TFC</button>
+          <button class="tab-button" onclick="switchTab('memoires')">📘 Mémoires</button>
+          <button class="tab-button" onclick="switchTab('resultats')">📄 Résultats</button>
+        </div>
+
+        <div id="tab-content">
+          <!-- Contenus spécifiques à chaque sous-partie seront injectés ici -->
+          <div class="tfc-formulaire">
+            <h3>➕ Enregistrer un TFC</h3>
+            <form id="form-tfc">
+              <input type="text" id="tfc-etudiant" placeholder="Nom complet de l’étudiant" required />
+              <input type="text" id="tfc-titre" placeholder="Titre du TFC" required />
+
+              <select id="tfc-domaine" required>
+                <option value="">-- Domaine --</option>
+                <option value="Électricité">Électricité</option>
+                <option value="Mécanique">Mécanique</option>
+                <option value="Informatique">Informatique</option>
+                <option value="Génie civil">Génie civil</option>
+              </select>
+
+              <input type="number" id="tfc-annee" placeholder="Année académique (ex: 2024)" required />
+              <input type="file" id="tfc-fichier" required />
+              <button type="submit">📤 Enregistrer</button>
+            </form>
+          </div>
+
+          <div class="tfc-liste">
+            <h3>📂 Liste des TFC enregistrés</h3>
+            <div id="tfc-par-domaine">
+              <!-- Dynamique : chaque domaine regroupe ses TFC -->
+            </div>
+          </div>
+
+
+          <div id="memoires" class="tab-section">
+            <!-- Partie Mémoires -->
+          </div>
+
+          <div id="resultats" class="tab-section">
+            <!-- Partie Résultats -->
+          </div>
+        </div>
+      </section>
+
+
+    </main>
+
   </div>
-</nav>
+<script>
+  const menuItems = document.querySelectorAll('#admin-menu li');
+const adminSections = document.querySelectorAll('.main-content section');
+
+menuItems.forEach(item => {
+  item.addEventListener('click', () => {
+    // Supprimer les classes actives
+    menuItems.forEach(i => i.classList.remove('active'));
+    adminSections.forEach(s => s.classList.remove('active'));
+
+    // Activer l'élément sélectionné
+    item.classList.add('active');
+    const targetId = item.getAttribute('data-target');
+    document.getElementById(targetId).classList.add('active');
+  });
+});
+let etudiants = [];
+
+const formAjout = document.getElementById("form-ajout-etudiant");
+const tableBody = document.querySelector("#table-etudiants tbody");
+const inputRecherche = document.getElementById("recherche");
+
+formAjout.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const nom = document.getElementById("nom").value;
+  const matricule = document.getElementById("matricule").value;
+  const faculte = document.getElementById("faculte").value;
+
+  etudiants.push({ nom, matricule, faculte });
+  afficherEtudiants(etudiants);
+
+  formAjout.reset();
+});
+
+function afficherEtudiants(liste) {
+  tableBody.innerHTML = "";
+  liste.forEach((e, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${e.nom}</td>
+      <td>${e.matricule}</td>
+      <td>${e.faculte}</td>
+      <td><button class="btn-supprimer" onclick="supprimerEtudiant(${index})">🗑️</button></td>
+    `;
+    tableBody.appendChild(tr);
+  });
+}
+
+function supprimerEtudiant(index) {
+  etudiants.splice(index, 1);
+  afficherEtudiants(etudiants);
+}
+
+// Recherche filtrée
+inputRecherche.addEventListener("input", function () {
+  const filtre = inputRecherche.value.toLowerCase();
+  const resultats = etudiants.filter(e =>
+    e.nom.toLowerCase().includes(filtre) ||
+    e.matricule.toLowerCase().includes(filtre) ||
+    e.faculte.toLowerCase().includes(filtre)
+  );
+  afficherEtudiants(resultats);
+});
+let enseignants = [];
+
+const formAjoutEns = document.getElementById("form-ajout-enseignant");
+const tableEnsBody = document.querySelector("#table-enseignants tbody");
+const inputRechercheEns = document.getElementById("recherche-enseignant");
+
+formAjoutEns.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const nom = document.getElementById("nom-enseignant").value;
+  const specialite = document.getElementById("specialite").value;
+  const email = document.getElementById("email-enseignant").value;
+
+  enseignants.push({ nom, specialite, email });
+  afficherEnseignants(enseignants);
+
+  formAjoutEns.reset();
+});
+
+function afficherEnseignants(liste) {
+  tableEnsBody.innerHTML = "";
+  liste.forEach((e, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${e.nom}</td>
+      <td>${e.specialite}</td>
+      <td>${e.email}</td>
+      <td><button class="btn-supprimer" onclick="supprimerEnseignant(${index})">🗑️</button></td>
+    `;
+    tableEnsBody.appendChild(tr);
+  });
+}
+
+function supprimerEnseignant(index) {
+  enseignants.splice(index, 1);
+  afficherEnseignants(enseignants);
+}
+
+inputRechercheEns.addEventListener("input", function () {
+  const filtre = inputRechercheEns.value.toLowerCase();
+  const resultats = enseignants.filter(e =>
+    e.nom.toLowerCase().includes(filtre) ||
+    e.specialite.toLowerCase().includes(filtre) ||
+    e.email.toLowerCase().includes(filtre)
+  );
+  afficherEnseignants(resultats);
+});
+let cours = [];
+
+const formAjoutCours = document.getElementById("form-ajout-cours");
+const tableCoursBody = document.querySelector("#table-cours tbody");
+const inputRechercheCours = document.getElementById("recherche-cours");
+
+formAjoutCours.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const nom = document.getElementById("nom-cours").value;
+  const code = document.getElementById("code-cours").value;
+  const enseignant = document.getElementById("enseignant-responsable").value;
+
+  cours.push({ nom, code, enseignant });
+  afficherCours(cours);
+
+  formAjoutCours.reset();
+});
+
+function afficherCours(liste) {
+  tableCoursBody.innerHTML = "";
+  liste.forEach((c, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${c.nom}</td>
+      <td>${c.code}</td>
+      <td>${c.enseignant}</td>
+      <td><button class="btn-supprimer" onclick="supprimerCours(${index})">🗑️</button></td>
+    `;
+    tableCoursBody.appendChild(tr);
+  });
+}
+
+function supprimerCours(index) {
+  cours.splice(index, 1);
+  afficherCours(cours);
+}
+
+inputRechercheCours.addEventListener("input", function () {
+  const filtre = inputRechercheCours.value.toLowerCase();
+  const resultats = cours.filter(c =>
+    c.nom.toLowerCase().includes(filtre) ||
+    c.code.toLowerCase().includes(filtre) ||
+    c.enseignant.toLowerCase().includes(filtre)
+  );
+  afficherCours(resultats);
+});
 
 
-  <div class="container">
-    <h1>Tableau de bord Administrateur</h1>
-    <!-- Menu d'actions sous forme de liste -->
-    <div class="list-group my-4">
-      <a href="student_list.html" class="list-group-item list-group-item-action">Voir la Liste des Étudiants</a>
-      <a href="add_student_admin.html" class="list-group-item list-group-item-action">Ajouter un Étudiant</a>
-      <a href="delete_student.html" class="list-group-item list-group-item-action">Supprimer un Étudiant</a>
-      <a href="make_eligible.html" class="list-group-item list-group-item-action">Rendre un Étudiant Éligible</a>
-      <a href="block_student.html" class="list-group-item list-group-item-action">Bloquer un Étudiant</a>
-    </div>
-    <button class="btn btn-danger" onclick="logout()">Déconnexion</button>
-  </div>
 
-  <script>
-    // Vérification que l'admin est connecté
-    const admin = JSON.parse(localStorage.getItem('admin'));
-    if (!admin || admin.role !== "admin") {
-      alert("Accès interdit. Veuillez vous connecter en tant qu'administrateur.");
-      window.location.href = "admin_login.html";
-    }
-    // Fonction de déconnexion qui supprime l'objet admin et redirige vers la page de connexion
-    function logout() {
-      localStorage.removeItem('admin');
-      window.location.href = "admin_login.html";
-    }
-  </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+let messages = [];
+
+const formMessage = document.getElementById("form-envoi-message");
+const listeMessages = document.getElementById("liste-messages");
+
+formMessage.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const destinataire = document.getElementById("destinataire").value.trim();
+  const contenu = document.getElementById("contenu-message").value.trim();
+
+  if (!destinataire || !contenu) return alert("Veuillez remplir tous les champs.");
+
+  const message = {
+    destinataire,
+    contenu,
+    date: new Date().toLocaleString()
+  };
+
+  messages.push(message);
+  afficherMessages(messages);
+
+  formMessage.reset();
+});
+
+function afficherMessages(liste) {
+  listeMessages.innerHTML = "";
+  liste.forEach((msg, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>À: ${msg.destinataire}</strong> <em>${msg.date}</em>
+      <p>${msg.contenu}</p>
+      <button onclick="supprimerMessage(${index})">🗑️</button>
+    `;
+    listeMessages.appendChild(li);
+  });
+}
+
+function supprimerMessage(index) {
+  messages.splice(index, 1);
+  afficherMessages(messages);
+}
+let notifications = [];
+
+const formNotif = document.getElementById("form-ajout-notification");
+const listeNotif = document.getElementById("liste-notifications");
+
+formNotif.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const titre = document.getElementById("titre-notif").value.trim();
+  const contenu = document.getElementById("contenu-notif").value.trim();
+
+  if (!titre || !contenu) return alert("Veuillez remplir tous les champs.");
+
+  const notification = {
+    titre,
+    contenu,
+    date: new Date().toLocaleString()
+  };
+
+  notifications.push(notification);
+  afficherNotifications(notifications);
+
+  formNotif.reset();
+});
+
+function afficherNotifications(liste) {
+  listeNotif.innerHTML = "";
+  liste.forEach((notif, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${notif.titre}</strong>
+      <em>${notif.date}</em>
+      <p>${notif.contenu}</p>
+      <button onclick="supprimerNotification(${index})">🗑️</button>
+    `;
+    listeNotif.appendChild(li);
+  });
+}
+
+function supprimerNotification(index) {
+  notifications.splice(index, 1);
+  afficherNotifications(notifications);
+}
+const formParametres = document.getElementById("form-parametres");
+const messageParam = document.getElementById("message-parametres");
+
+formParametres.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const nomEtab = document.getElementById("nom-etablissement").value.trim();
+  const emailContact = document.getElementById("email-contact").value.trim();
+  const theme = document.getElementById("theme").value;
+
+  // Ici, on pourrait sauvegarder ces données dans le stockage local ou serveur
+  localStorage.setItem("nomEtablissement", nomEtab);
+  localStorage.setItem("emailContact", emailContact);
+  localStorage.setItem("theme", theme);
+
+  messageParam.textContent = "⚡ Paramètres enregistrés avec succès !";
+
+  appliquerTheme(theme);
+});
+
+// Au chargement de la page, on récupère les paramètres
+window.addEventListener("load", () => {
+  const nomEtab = localStorage.getItem("nomEtablissement");
+  const emailContact = localStorage.getItem("emailContact");
+  const theme = localStorage.getItem("theme") || "clair";
+
+  if (nomEtab) document.getElementById("nom-etablissement").value = nomEtab;
+  if (emailContact) document.getElementById("email-contact").value = emailContact;
+  document.getElementById("theme").value = theme;
+
+  appliquerTheme(theme);
+});
+
+function appliquerTheme(theme) {
+  if (theme === "sombre") {
+    document.body.style.backgroundColor = "#1e1e1e";
+    document.body.style.color = "#ddd";
+  } else {
+    document.body.style.backgroundColor = "";
+    document.body.style.color = "";
+  }
+}
+function switchTab(tabId) {
+  const buttons = document.querySelectorAll('.tab-button');
+  const sections = document.querySelectorAll('.tab-section');
+
+  buttons.forEach(btn => btn.classList.remove('active'));
+  sections.forEach(sec => sec.classList.remove('active-tab'));
+
+  document.querySelector(`#${tabId}`).classList.add('active-tab');
+  event.target.classList.add('active');
+}
+const tfcForm = document.getElementById("form-tfc");
+const tfcDomaineContainer = document.getElementById("tfc-par-domaine");
+
+let tfcData = {
+  "Électricité": [],
+  "Mécanique": [],
+  "Informatique": [],
+  "Génie civil": []
+};
+
+tfcForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const nom = document.getElementById("tfc-etudiant").value.trim();
+  const titre = document.getElementById("tfc-titre").value.trim();
+  const domaine = document.getElementById("tfc-domaine").value;
+  const annee = document.getElementById("tfc-annee").value;
+  const fichier = document.getElementById("tfc-fichier").files[0];
+
+  if (!nom || !titre || !domaine || !annee || !fichier) {
+    alert("Tous les champs sont obligatoires !");
+    return;
+  }
+
+  const tfc = {
+    nom,
+    titre,
+    annee,
+    fichierNom: fichier.name
+  };
+
+  tfcData[domaine].push(tfc);
+  tfcForm.reset();
+  afficherTfc();
+});
+
+function afficherTfc() {
+  tfcDomaineContainer.innerHTML = "";
+
+  for (let domaine in tfcData) {
+    const liste = tfcData[domaine];
+    if (liste.length === 0) continue;
+
+    const bloc = document.createElement("div");
+    bloc.className = "tfc-domaine-bloc";
+
+    bloc.innerHTML = `<h4>${domaine}</h4><ul></ul>`;
+    const ul = bloc.querySelector("ul");
+
+    liste.forEach((tfc, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span><strong>${tfc.nom}</strong> — ${tfc.titre} (${tfc.annee})</span>
+        <span>${tfc.fichierNom} 📄</span>
+      `;
+      ul.appendChild(li);
+    });
+
+    tfcDomaineContainer.appendChild(bloc);
+  }
+}
+
+
+
+
+
+
+
+</script>
+  
+
+
 </body>
 </html>

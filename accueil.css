@@ -1,6 +1,6 @@
 /*globalcss*/
 body{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-weight: 400;
 	font-size:14px;
 	background-color:#f9f9f9;
@@ -8,7 +8,7 @@ body{
 }
 h5{
     font-size: 16px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 h1{
     font-size: 25px;
@@ -16,7 +16,7 @@ h1{
 }
 a{
     font-size: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-decoration: none
     ;
 }
@@ -407,54 +407,73 @@ header{
 
 
 /*section6 CSS*/
-.section6{
-	background:#f9f9f9;
-	position:relative;	
-}
-.section6 .section6-personel{
-    display: flex;
-	justify-content: center;
+#corps-professoral {
+  padding: 40px 20px;
+  background: #f4f4f4;
 }
 
-.section6 .section6-personel .personel-description {
-	flex: 0 0 25%;
-	background: #fff;
-	border:1px solid #ddd;
-	text-align: center;
-	position: relative;
-	overflow: hidden;
-	margin: 15px 0;
-	padding:50px 35px 30px 35px;
-	width: 200px;
-	height: 100px;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-}
-.personel-description .logo-dep img{
-	height: 60px; 
-	width: 60px;
-	 border: 2px  solid #000;
-    border-radius: 50%;
-
+#corps-professoral h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
 }
 
-.section6 .section6-personel h4 {
-	font-size: 21px;
-	color: #2C2D3F;
-	margin-top: 30px;
-	margin-bottom: 15px;
+.professeurs-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
 }
-.section6 .section6-personel p {
-	font-size:36px;
-	font-weight:600;
-	color:#042b52;
+
+.professeurs-scroll::-webkit-scrollbar {
+  height: 8px;
 }
-.section6 .section6-personel p span{
-	display:inline-block;
-	font-size:14px;
-	font-weight:400;
-	color:#868686;
-	margin-left:8px;
+
+.professeurs-scroll::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 4px;
 }
+
+.prof-card {
+  flex: 0 0 auto;
+  min-width: 200px;
+  max-width: 220px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  scroll-snap-align: start;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.prof-card:hover {
+  transform: scale(1.05);
+}
+
+.prof-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.prof-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.prof-card p {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
 /*section 7*/
 .section7{
 	background:#f9f9f9;

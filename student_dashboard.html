@@ -10,73 +10,61 @@
   />
   <style>
     /* ---------- Style global ---------- */
-    body {
+    body{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      background-color:#f9f9f9;
+    }
 
-    }
-    /* Conteneur principal en flex : sidebar + contenu */
-    .dashboard-container {
-      display: flex;
-      min-height: 100vh;
-    }
     .dashboard-container{
-      font-size: 20px
-      ;
-    }
-
-    /* ---------- Sidebar (à gauche) ---------- */
-    .sidebar {
-      background-color: #042b52;
-      width: 250px;
-      border-right: 1px solid #ddd;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 30px;
-	    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      height: 100vh;
+    }
+
+    /* ===== MENU LATÉRAL ===== */
+    #menu {
+      width: 220px;
+      background-color: #042b52;
+      padding: 20px 0;
       color: white;
     }
-    /* Photo circulaire */
-    .sidebar .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid black;
-      margin-bottom: 15px;
-      align-items: center;
 
-
+    #menu li {
+      list-style: none;
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .sidebar h4 {
-      margin-bottom: 30px;
+
+    #menu li:hover {
+      background-color: black;
+    }
+
+    #menu li.active {
+      background-color: black;
       font-weight: bold;
-      font-size: 1.1rem;
-      color: white;
+      border-left: 5px solid #fff;
     }
-    /* Liens menu */
-    .sidebar .nav-link {
-      width: 100%;
-      text-align: left;
-      padding: 10px 25px;
-      color: #333;
-      font-weight: 500;
-      transition: background-color 0.2s, color 0.2s;
+
+    /* ===== CONTENU PRINCIPAL ===== */
+    main {
+      flex: 1;
+      padding: 30px;
+      background-color: #f4f6f8;
+      overflow-y: auto;
     }
-    .sidebar .nav-link.active {
-      color: #fff;
+
+    section {
+      display: none; /* toutes les sections sont masquées au départ */
     }
-    .sidebar .nav-link:hover {
-      background-color: #e5e5e5;
-      color: black;
-      text-decoration: none;
+
+    section.active {
+      display: block;
     }
-    /* Bouton déconnexion */
-    .sidebar .logout-btn {
-      margin-top: auto;
+
+    h2 {
       margin-bottom: 20px;
     }
 
@@ -112,200 +100,848 @@
       margin-right: 30px ;
 
        }
+/* Section principale */
+.dashboard-section {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+}
+
+/* Bannière de bienvenue */
+.welcome-banner {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+}
+
+.photo-profil {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.texte-bienvenue h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.texte-bienvenue p {
+  margin: 5px 0 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Cartes infos rapides */
+.infos-rapides {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.carte-info {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  flex: 1 1 200px;
+  padding: 20px;
+  text-align: center;
+}
+
+.carte-info h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #888;
+}
+
+.carte-info .valeur {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #111;
+}
+
+/* Activités à venir */
+.activites-a-venir {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 20px;
+}
+
+.activites-a-venir h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.activites-a-venir ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 0;
+}
+
+.activites-a-venir li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.activites-a-venir li:last-child {
+  border-bottom: none;
+}
+
     /* La section visible aura la classe .active-section */
     .active-section {
       display: block;
     }
+  /* Section des cours */
+#dashboard-cours h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.liste-cours {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.carte-cours {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 16px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.carte-cours:hover {
+  transform: translateY(-3px);
+}
+
+.carte-cours h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.carte-cours p {
+  margin: 6px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.bouton-detail {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #042b52;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+}
+  /* Section des notes */
+
+.table-notes-container {
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.table-notes {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table-notes th, .table-notes td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.table-notes th {
+  background-color: #f0f4f8;
+  font-weight: bold;
+  color: #333;
+}
+
+.table-notes tr:hover {
+  background-color: #f9f9f9;
+}
+.emploi-container {
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background: #fff;
+}
+
+.emploi-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.emploi-table th,
+.emploi-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+}
+
+.emploi-table th {
+  background-color: #f0f4f8;
+  font-weight: bold;
+  color: #333;
+}
+
+.emploi-table td {
+  height: 60px;
+}
+.profil-academique {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.profil-academique h3 {
+  margin-top: 20px;
+  color: #2c3e50;
+}
+
+.profil-academique ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.profil-academique li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.profil-academique li:last-child {
+  border-bottom: none;
+}
+
+.profil-academique a {
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.profil-academique a:hover {
+  text-decoration: underline;
+}
+.messagerie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.boite-reception,
+.formulaire-message {
+  flex: 1 1 300px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.boite-reception h3,
+.formulaire-message h3 {
+  margin-bottom: 15px;
+}
+
+.boite-reception ul {
+  list-style: none;
+  padding-left: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.boite-reception li {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+.boite-reception li:last-child {
+  border-bottom: none;
+}
+
+.formulaire-message form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulaire-message label {
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.formulaire-message input,
+.formulaire-message textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.formulaire-message button {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.formulaire-message button:hover {
+  background-color: #45a049;
+}
+.notifications-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#liste-notifications {
+  list-style: none;
+  padding-left: 0;
+}
+
+#liste-notifications li {
+  border-bottom: 1px solid #eee;
+  padding: 12px 10px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#liste-notifications li:last-child {
+  border-bottom: none;
+}
+
+.notification-contenu {
+  flex: 1;
+}
+
+.notification-contenu strong {
+  color: #2c3e50;
+}
+
+.bouton-lu {
+  background-color: #042b52;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.bouton-lu.lue {
+  background-color: #aaa;
+}
   </style>
 </head>
 
 <body>
   <div class="dashboard-container">
-    <!-- ==================== SIDEBAR ==================== -->
-    <nav class="sidebar">
-      <!-- Photo de l'étudiant, que l'on remplira en JS depuis localStorage -->
-      <img src="images/default_avatar.png" alt="Avatar" class="avatar" id="studentAvatar"/>
+      <!-- === MENU LATERAL === -->
+    <ul id="menu">
+      <li class="active" data-target="dashboard-accueil">🏠 Accueil</li>
+      <li data-target="dashboard-cours">📚 Cours</li>
+      <li data-target="dashboard-notes">📝 Notes</li>
+      <li data-target="dashboard-horaire"> 📅Horaire</li>
+      <li data-target="dashboard-dossier">📁 Dossier académique</li>
+      <li data-target="dashboard-messages">✉️ Messagerie</li>
+      <li data-target="dashboard-notifications">🔔 Notifications</li>
 
-      <!-- Texte de bienvenue, avec un span vide que l’on remplira en JS -->
-      <h4>Bienvenue, <span id="studentName">NOM</span></h4>
 
-      <!-- Menu vertical -->
-      <a href="#" class="nav-link active" data-section="accueil">Accueil</a>
-      <a href="#" class="nav-link" data-section="cours">Mes notes</a>
-      <a href="#horaire" class="nav-link" data-section="horaire">Horaire</a>
-      <a href="#dossier" class="nav-link" data-section="dossier">Dossier académique</a>
 
-      <!-- Bouton déconnexion en bas -->
-      <a href="#" class="btn btn-outline-secondary logout-btn" onclick="handleLogout()">
-        Déconnexion </a>
-    </nav>
-    <!-- ==================== MAIN CONTENT ==================== -->
-    <div class="main-content">
-      <!-- Section : Accueil -->
-      <div id="accueil" class="content-section active-section">
-        <h2>Accueil</h2>
-        <p style="font-size: 30px;">
-          Bienvenue sur votre espace personnel !<br />
-          <strong><span id="studentPromo">L2</span></strong>
-          du département de
-          <strong><span id="studentDept">Génie informatique</span></strong>.
-        </p>
-        <p style="font-size: 30px">
-          Utilisez le menu à gauche pour naviguer vers vos notes, votre horaire de cours et votre dossier académique.
-        </p>
-      </div>
 
-      <!-- Section : Cours -->
-      <div id="cours" class="content-section">
-        <div class="dashboard-cours">
-          <h2>Mes NOTES</h2>
-          <div class="notes">
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="">ALGO</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="">ANGLAIS</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="">ANACIR</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="">MATHS</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">MACARAT</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">MACAFLUIDE</a>
+    </ul>
+  <!-- === CONTENU PRINCIPAL === -->
+    <main>
+      <section id="dashboard-accueil" class="active">
+        <div class="welcome-banner">
+          <img src="1746136991150.jpg" alt="Photo de l'étudiant" class="photo-profil">
+          <div class="texte-bienvenue">
+            <h2>Bienvenue, <span id="nom-etudiant">LUSAKUNEO</span> 👋</h2>
+            <p>Faculté Polytechnique | Université de Kinshasa</p>
           </div>
-          <div class="notes">
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">MECASOL</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">SDM</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">PROBA</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">ECM</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">SYGNAUX</a>
-            <a href=""><img src="IMAGES\book-journal-whills-solid.svg" alt="ALGO">THERMO</a>
-          </div>
+        </div>
 
+        <div class="infos-rapides">
+          <div class="carte-info">
+            <h3>Moyenne Générale</h3>
+            <p class="valeur">14.2 / 20</p>
+          </div>
+          <div class="carte-info">
+            <h3>Statut</h3>
+            <p class="valeur">Inscrite - Active</p>
+          </div>
+          <div class="carte-info">
+            <h3>Année Académique</h3>
+            <p class="valeur">2024 - 2025</p>
+          </div>
+        </div>
+
+        <div class="activites-a-venir">
+          <h3>📅 Activités à venir</h3>
+          <ul>
+            <li><strong>15 Juillet :</strong> Examen de Mathématiques</li>
+            <li><strong>18 Juillet :</strong> Soutenance du TFC</li>
+            <li><strong>25 Juillet :</strong> Remise du rapport de stage</li>
+          </ul>
+        </div>
+      </section>
+        <!-- Section : Cours -->
+      <section id="dashboard-cours" class="dashboard-section">
+        <h2>📚 Mes cours</h2>
+        <div class="liste-cours" id="liste-cours">
+          
         </div>   
-      </div>
-      
-      <!-- Section : Horaire -->
-      <div id="horaire" class="content-section">
-        <h2>Mon Horaire</h2>
-        <table class="table table-bordered">
-          <thead class="thead-light">
+      </section>
+    <section id="dashboard-notes" class="dashboard-section">
+      <h2>📝 Mes Notes</h2>
+      <div class="table-notes-container">
+        <table class="table-notes">
+          <thead>
             <tr>
-              <th>Jour</th>
-              <th>Heure</th>
               <th>Cours</th>
-              <th>Salle</th>
+              <th>Devoir</th>
+              <th>TP</th>
+              <th>Examen</th>
+              <th>Moyenne</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Lundi</td>
-              <td>08 h 00 – 10 h 00</td>
-              <td>Mathématiques Appliquées</td>
-              <td>Amphi 1</td>
-            </tr>
-            <tr>
-              <td>Mardi</td>
-              <td>10 h 00 – 12 h 00</td>
-              <td>Algorithmique</td>
-              <td>TP Informatique (Salle 204)</td>
-            </tr>
-            <tr>
-              <td>Mercredi</td>
-              <td>14 h 00 – 16 h 00</td>
-              <td>Bases de Données</td>
-              <td>Salle 305</td>
-            </tr>
-            <tr>
-              <td>Jeudi</td>
-              <td>08 h 00 – 10 h 00</td>
-              <td>Structures de Données</td>
-              <td>Amphi 2</td>
-            </tr>
-            <tr>
-              <td>Vendredi</td>
-              <td>12 h 00 – 14 h 00</td>
-              <td>Projet Informatique</td>
-              <td>TP Informatique (Salle 204)</td>
-            </tr>
+          <tbody id="corps-table-notes">
+            <!-- Les lignes de notes seront générées ici par JS -->
           </tbody>
         </table>
       </div>
+    </section>
+    <section id="dashboard-horaire">
+      <h2>📅 Emploi du Temps</h2>
+      <div class="emploi-container">
+        <table class="emploi-table">
+          <thead>
+            <tr>
+              <th>Heures</th>
+              <th>Lundi</th>
+              <th>Mardi</th>
+              <th>Mercredi</th>
+              <th>Jeudi</th>
+              <th>Vendredi</th>
+              <th>Samedi</th>
+            </tr>
+          </thead>
+          <tbody id="emploi-tbody">
+            <!-- Les lignes seront injectées dynamiquement -->
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-      <!-- Section : Dossier -->
-      <div id="dossier" class="content-section">
-        <h2>Mon Dossier Académique</h2>
-        <p>
-          <strong>Statut des frais :</strong> À jour
-        </p>
-        <!-- Notes -->
-        <h5>Mes cotes :</h5>
-    
-        <ul class="list-group">
-          <li class="list-group-item">Mathématiques Appliquées : 15</li>
-          <li class="list-group-item">Algorithmique : 13</li>
-          <li class="list-group-item">Bases de Données : 16</li>
-          <li class="list-group-item">Structures de Données : 14</li>
+    <section id="dashboard-dossier">
+      <h2>📁 Dossier Académique</h2>
+
+      <div class="profil-academique">
+        <h3>👤 Informations personnelles</h3>
+        <ul>
+          <li><strong>Nom :</strong> Perside Lusakueno</li>
+          <li><strong>Matricule :</strong> 2023-POLY-001</li>
+          <li><strong>Email :</strong> perside@unikin.cd</li>
         </ul>
 
-        <!-- Téléchargement du coupon (statique) -->
-        <div class="bouton">
-          <p><strong>Coupon de délibération :</strong></p>
-          <div class="sous-classe3">
-            <a href="login.html"><button class="btn"> Télécharger le coupon</button></a>
-          </div>
+        <h3>🎓 Parcours académique</h3>
+        <ul>
+          <li><strong>Faculté :</strong> Polytechnique</li>
+          <li><strong>Département :</strong> Génie Electrique</li>
+          <li><strong>Année académique :</strong> 2024 - 2025</li>
+          <li><strong>Promotion :</strong> L2 LMD</li>
+          <li><strong>Statut :</strong> Inscrite - Active</li>
+        </ul>
+
+        <h3>📄 Documents disponibles</h3>
+        <ul class="documents">
+          <li><a href="#">📥 Relevé de notes - Semestre 1</a></li>
+          <li><a href="#">📥 Relevé de notes - Semestre 2</a></li>
+          <li><a href="#">📥 Attestation d’inscription</a></li>
+          <li><a href="#">📥 Bulletin annuel</a></li>
+        </ul>
+      </div>
+    </section>
+    <section id="dashboard-messages">
+      <h2>✉️ Messagerie</h2>
+      <div class="messagerie">
+        <!-- Liste des messages reçus -->
+        <div class="boite-reception">
+          <h3>📥 Boîte de réception</h3>
+          <ul id="liste-messages">
+            <!-- Messages injectés par JS -->
+          </ul>
+        </div>
+        <!-- Formulaire de rédaction -->
+        <div class="formulaire-message">
+          <h3>📝 Nouveau message</h3>
+          <form id="form-message">
+            <label>Destinataire :</label>
+            <input type="text" id="destinataire" required>
+
+            <label>Objet :</label>
+            <input type="text" id="objet" required>
+
+            <label>Message :</label>
+            <textarea id="contenu" rows="5" required></textarea>
+
+            <button type="submit">Envoyer</button>
+          </form>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+    <section id="dashboard-notifications">
+      <h2>🔔 Notifications</h2>
+
+      <div class="notifications-container">
+        <ul id="liste-notifications">
+          <!-- Notifications générées par JavaScript -->
+        </ul>
+      </div>
+    </section>
+
+
+
 
   <!-- ---------- JavaScript pour gérer le contenu et l’injection du nom/promo/dept ---------- -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1) Injection du nom de l'étudiant
-      const storedName = localStorage.getItem('studentName') || 'Invité';
-      document.getElementById('studentName').innerText = storedName;
+    const menuItems = document.querySelectorAll('#menu li');
+    const sections = document.querySelectorAll('main section');
 
-      // 2) Injection de la photo (si fournie)
-      const storedPhoto = localStorage.getItem('studentPhoto');
-      if (storedPhoto) {
-        document.getElementById('studentAvatar').src = storedPhoto;
-      }
+    menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Retirer la classe 'active' de tous les items et sections
+        menuItems.forEach(i => i.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
 
-      // 3) Injection de la promotion
-      const storedPromo = localStorage.getItem('studentPromo') || 'L2';
-      document.getElementById('studentPromo').innerText = storedPromo;
-
-      // 4) Injection du département
-      const storedDept = localStorage.getItem('studentDept') || 'génie informatique';
-      document.getElementById('studentDept').innerText = storedDept;
-    });
-
-    // ---------- JS pour la navigation entre sections (inchangé) ----------
-    const navLinks = document.querySelectorAll('.sidebar .nav-link');
-    const sections = document.querySelectorAll('.content-section');
-
-    navLinks.forEach((link) => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        navLinks.forEach((lnk) => lnk.classList.remove('active'));
-        this.classList.add('active');
-        const target = this.getAttribute('data-section');
-        sections.forEach((sec) => sec.classList.remove('active-section'));
-        document.getElementById(target).classList.add('active-section');
+        // Ajouter 'active' à l’élément cliqué et à la section ciblée
+        item.classList.add('active');
+        const targetId = item.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.classList.add('active');
+        }
       });
     });
+  const etudiant = {
+    nom: "Perside Lusakueno",
+    moyenne: 14.2,
+    statut: "Inscrite - Active",
+    annee: "2024 - 2025",
+    activites: [
+      { date: "15 Juillet", description: "Examen de Mathématiques" },
+      { date: "18 Juillet", description: "Soutenance du TFC" },
+      { date: "25 Juillet", description: "Remise du rapport de stage" }
+    ]
+  };
 
-    // ---------- Fonction de déconnexion (vide localStorage) ----------
-    function handleLogout() {
-      localStorage.removeItem('studentName');
-      localStorage.removeItem('studentPhoto');
-      localStorage.removeItem('studentPromo');
-      localStorage.removeItem('studentDept');
-      localStorage.removeItem('studentFeesStatus');
-      localStorage.removeItem('studentEligible');
-      alert('Vous êtes déconnecté.');
-      window.location.href = 'grand_public.html';
+  // Injecter le nom
+  document.getElementById("nom-etudiant").textContent = etudiant.nom;
+
+  // Injecter la moyenne
+  document.querySelector(".carte-info:nth-child(1) .valeur").textContent = `${etudiant.moyenne} / 20`;
+
+  // Injecter le statut
+  document.querySelector(".carte-info:nth-child(2) .valeur").textContent = etudiant.statut;
+
+  // Injecter l’année académique
+  document.querySelector(".carte-info:nth-child(3) .valeur").textContent = etudiant.annee;
+
+  // Générer les activités
+  const ul = document.querySelector(".activites-a-venir ul");
+  ul.innerHTML = ""; // Nettoyer d'abord
+  etudiant.activites.forEach(act => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${act.date} :</strong> ${act.description}`;
+    ul.appendChild(li);
+  });
+   const cours = [
+    {
+      nom: "Algorithme et programmation",
+      enseignant: "Pr. Paul OLAMBA",
+      credits: 3,
+      lien: "#"
+    },
+    {
+      nom: "Anglais",
+      enseignant: "Pr. Ricardo VALL",
+      credits: 2,
+      lien: "#"
+    },
+    {
+      nom: "Analyse des circuits",
+      enseignant: "Pr. Jean-Marie BEYA",
+      credits: 5,
+      lien: "#"
+    },
+    {
+      nom: "Complement maths",
+      enseignant: "Pr. RAMAZANI",
+      credits: 6,
+      lien: "#"
+    },
+     {
+      nom: "Mecarat",
+      enseignant: "Pr. Python KABEYA",
+      credits: 4,
+      lien: "#"
+    },
+     {
+      nom: "Mecafluide",
+      enseignant: "Pr. SUMUNA",
+      credits: 4,
+      lien: "#"
+    },
+     {
+      nom: "Mecasol",
+      enseignant: "Pr. Ricardo VALL",
+      credits: 6,
+      lien: "#"
+    },
+     {
+      nom: "SDM",
+      enseignant: "Pr. Haddy MBUYI",
+      credits: 6,
+      lien: "#"
+    },
+
+     {
+      nom: "Probastat",
+      enseignant: "Pr. Christian BINGANE",
+      credits: 4,
+      lien: "#"
+    },
+     {
+      nom: "ECM",
+      enseignant: "Pr. WADI",
+      credits: 5,
+      lien: "#"
+    },
+     {
+      nom: "Signaux et systèmes",
+      enseignant: "Pr. Guy WALONGO",
+      credits: 4,
+      lien: "#"
+    },
+     {
+      nom: "Thermodynamique",
+      enseignant: "Pr. Wadi",
+      credits: 5,
+      lien: "#"
+    },
+    // Tu peux ajouter d'autres cours ici
+  ];
+
+  const container = document.getElementById("liste-cours");
+
+  cours.forEach(c => {
+    const carte = document.createElement("div");
+    carte.classList.add("carte-cours");
+    carte.innerHTML = `
+      <h3>${c.nom}</h3>
+      <p><strong>Enseignant :</strong> ${c.enseignant}</p>
+      <p><strong>Crédits :</strong> ${c.credits}</p>
+      <a href="${c.lien}" class="bouton-detail">Voir détails</a>
+    `;
+    container.appendChild(carte);
+  });
+  const notes = [
+    {
+      cours: "ALGO",
+      devoir: 15,
+      tp: 14,
+      examen: 13
+    },
+    {
+      cours: "Mecasol",
+      devoir: 12,
+      tp: 13,
+      examen: 16
+    },
+    {
+      cours: "Proba",
+      devoir: 14,
+      tp: 15,
+      examen: 15
+    },
+    {
+      cours: "Thermodynamique",
+      devoir: 13,
+      tp: 12,
+      examen: 14
     }
-  </script>
+  ];
 
-  <!-- Bootstrap JS + Popper -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  const corpsTable = document.getElementById("corps-table-notes");
+
+  notes.forEach(note => {
+    const moyenne = ((note.devoir + note.tp + note.examen) / 3).toFixed(2);
+
+    const ligne = document.createElement("tr");
+    ligne.innerHTML = `
+      <td>${note.cours}</td>
+      <td>${note.devoir}</td>
+      <td>${note.tp}</td>
+      <td>${note.examen}</td>
+      <td><strong>${moyenne}</strong></td>
+    `;
+    corpsTable.appendChild(ligne);
+  });
+  // Créneaux horaires de la journée
+  const heures = [
+    "08h00 - 10h00",
+    "10h00 - 12h00",
+    "12h00 - 14h00",
+    "14h00 - 16h00",
+    "16h00 - 18h00"
+  ];
+
+  // Emploi du temps : un tableau de jours avec les cours par heure
+  const emploiDuTemps = {
+    "Lundi": ["compléments maths", "compléments maths", "pause", "Anglais", "Anglais"],
+    "Mardi": ["Mécasol", "Mécasol", "pause", "Mécafluide", "Mécafluide"],
+    "Mercredi": ["ECM", "", "pause", "", "Proba"],
+    "Jeudi": ["Anacir", "TP algo", "pause", "Complément math", ""],
+    "Vendredi": ["Mecarat", "", "pause", "Mecasol", ""],
+    "Samedi": ["Projet", "", "pause", "", ""]
+  };
+
+  const jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+  const tbody = document.getElementById("emploi-tbody");
+
+  // Génération des lignes du tableau
+  heures.forEach((plage, index) => {
+    const ligne = document.createElement("tr");
+
+    // Colonne des heures
+    const cellHeure = document.createElement("td");
+    cellHeure.textContent = plage;
+    ligne.appendChild(cellHeure);
+
+    // Colonnes des jours
+    jours.forEach(jour => {
+      const cell = document.createElement("td");
+      const cours = emploiDuTemps[jour][index];
+      cell.textContent = cours || "-";
+      ligne.appendChild(cell);
+    });
+
+    tbody.appendChild(ligne);
+  });
+  const messagesSimules = [
+    {
+      expediteur: "Secrétariat Académique",
+      objet: "Validation de votre inscription",
+      contenu: "Votre inscription pour l'année 2024-2025 est confirmée.",
+      date: "10 Juillet"
+    },
+    {
+      expediteur: "Prof. KABAMBA",
+      objet: "Rappel : TP de math",
+      contenu: "N'oubliez pas de rendre le TP pour lundi prochain.",
+      date: "9 Juillet"
+    }
+  ];
+
+  const listeMessages = document.getElementById("liste-messages");
+
+  function afficherMessages() {
+    listeMessages.innerHTML = "";
+    messagesSimules.forEach(msg => {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${msg.expediteur}</strong> (${msg.date})<br>
+                      <em>${msg.objet}</em><br>
+                      ${msg.contenu}`;
+      listeMessages.appendChild(li);
+    });
+  }
+
+  afficherMessages();
+
+  // Gestion de l'envoi
+  const form = document.getElementById("form-message");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nouveauMessage = {
+      expediteur: "Moi (étudiant)",
+      objet: document.getElementById("objet").value,
+      contenu: document.getElementById("contenu").value,
+      date: new Date().toLocaleDateString()
+    };
+
+    messagesSimules.unshift(nouveauMessage); // ajouter en haut
+    afficherMessages();
+
+    form.reset();
+    alert("Message envoyé !");
+  });
+  const notifications = [
+    { id: 1, texte: "Votre dossier est complet. Merci.", lue: false },
+    { id: 2, texte: "Paiement partiel reçu pour le semestre 2.", lue: false },
+    { id: 3, texte: "Nouveau message du Prof. KABAMBA.", lue: true },
+    { id: 4, texte: "Rappel : dépôt du TFC avant le 30 juillet.", lue: false }
+  ];
+
+  const listeNotif = document.getElementById("liste-notifications");
+
+  function afficherNotifications() {
+    listeNotif.innerHTML = "";
+
+    notifications.forEach(n => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <div class="notification-contenu">
+          <strong>${n.lue ? "✅" : "🆕"}</strong> ${n.texte}
+        </div>
+        <button class="bouton-lu ${n.lue ? 'lue' : ''}" onclick="toggleLu(${n.id})">
+          ${n.lue ? "Marquée" : "Marquer comme lue"}
+        </button>
+      `;
+      listeNotif.appendChild(li);
+    });
+  }
+
+  function toggleLu(id) {
+    const notif = notifications.find(n => n.id === id);
+    if (notif) {
+      notif.lue = true;
+      afficherNotifications();
+    }
+  }
+
+  afficherNotifications();
+</script>
 </body>
 </html>

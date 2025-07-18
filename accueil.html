@@ -11,14 +11,14 @@
         <div class="classe1">
             <div class="sous-classe1">
                 <a href="index.html"><img src="logo.png" alt="#" width="60px" height="60px"></a>
-				<h5>UNIVERSITE DE KINSHASA <br> FACULTE POLYTECHNIQUE</h5>
+				<h5>UNIVERSITE DE KINSHASA <br>FACULTE POLYTECHNIQUE</h5>
             </div>
             <div class="sous-classe2">
                 <nav>
                     <ul class="nav menu">
 					    <li><a href="#">Accueil</a></li>
 					    <li><a href="#departement">Départements</a></li>
-					    <li><a href="#equipe">Corps professionel</a></li>
+					    <li><a href="#corps-professoral">Corps professoral</a></li>
                         <li><a href="bibliotheque.html">Bibliothèques</a></li>
 				    </ul>
                 </nav>
@@ -189,42 +189,53 @@
 				<a href="https://www.youtube.com/watch?v=RFVXy6CRVR4" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
 			</div>
 	</section>
-    <section class="section6 section" id="equipe">
-		<div class="personel">
-			<div class="section-title">
-				<h2>Equipe de direction</h2>
-			</div>
-			<div class="section6-personel">
-				<div class="personel-description">
-			    	<div class="logo-dep">
-						<img src="1746221003204.jpg" alt="">
-					</div>
-					<h4>Doyen de la faculté</h4>
-					<div class="nom">
-						<p><span> Pr.Dr. Ir. Jean-Marie BEYA</span></p>
-					</div>	
-				</div>
-                <div class="personel-description">
-			    	<div class="logo-dep">
-						<img src="1746220833772.jpg" alt="">
-					</div>
-					<h4>Vice-doyen des études</h4>
-					<div class="nom">
-						<p class="amount"><span>Pr. Dr. Haddy MBUYI</span></p>
-					</div>	
-				</div>
-                <div class="personel-description">
-			    	<div class="logo-dep">
-						<img src="1746221435603.jpg" alt="">
-					</div>
-					<h4>Vice-doyen chargé de la recherche</h4>
-					<div class="nom">
-						<p class="amount"><span> Pr. Dr. Ir. LIASSA</span></p>
-					</div>	
-				</div>
-			</div>	
-		</div>	
-	</section>
+    
+    <section id="corps-professoral">
+        <h2> Corps Professoral</h2>
+        <div class="professeurs-scroll">
+            <div class="prof-card">
+                <img src="Prof polytech\GEI (56 sur 68).jpg" alt="Professeur A">
+                <h3>Pr. Jean-Marie BEYA</h3>
+                <p>Doyen,Ingénieur electricien</p>
+            </div>
+            <div class="prof-card">
+                <img src="prof2.jpg" alt="Professeur B">
+                <h3>Pr. Haddy MBUYI</h3>
+                <p>Chimiste</p>
+            </div>
+            <div class="prof-card">
+                <img src="1746221435603.jpg" alt="Professeur C">
+                <h3>Pr. Lionnel LIASSA </h3>
+                <p>Electrotechnicien</p>
+            </div>
+             <div class="prof-card">
+                <img src="prof3.jpg" alt="Professeur C">
+                <h3>Pr. Paul OLAMBA  </h3>
+                <p>physique</p>
+            </div>
+             <div class="prof-card">
+                <img src="Prof polytech\defense 26 Aout  (5 sur 54).jpg" alt="Professeur C">
+                <h3>Pr. Ricardo VALL </h3>
+                <p>ingenieur constructeur</p>
+            </div>
+             <div class="prof-card">
+                <img src="prof3.jpg" alt="Professeur C">
+                <h3>Pr. Carl MBUKANI </h3>
+                <p>Electrotechnicien</p>
+            </div>
+             <div class="prof-card">
+                <img src="prof3.jpg" alt="Professeur C">
+                <h3>Pr. Laurent KITOKO </h3>
+                <p>Electrotechnicien</p>
+            </div>
+             <div class="prof-card">
+                <img src="prof3.jpg" alt="Professeur C">
+                <h3>Pr. Guy WALONGO </h3>
+                <p>Electrotechnicien</p>
+            </div>
+            <!-- Ajoute autant de professeurs que nécessaire -->
+        </div>
+    </section>
     <section class="section7 section" id="actuel">
          <div class="section-title">
 				<h2> ACTUALITES</h2>
@@ -390,4 +401,25 @@
        
     });  
     });
+  const scrollContainer = document.querySelector(".professeurs-scroll");
+
+  let autoScroll = setInterval(() => {
+    scrollContainer.scrollBy({ left: 1, behavior: 'smooth' });
+
+    // Si on atteint la fin, on revient au début
+    if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
+      scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  }, 30); // Plus petit = plus rapide
+scrollContainer.addEventListener("mouseenter", () => clearInterval(autoScroll));
+scrollContainer.addEventListener("mouseleave", () => {
+  autoScroll = setInterval(() => {
+    scrollContainer.scrollBy({ left: 1, behavior: 'smooth' });
+    if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
+      scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  }, 30);
+});
+
+
 </script>
